@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 				permanent: false,
 				destination: `${
 					endpoint.replace(/(\/graphql\/)/, '/') + encodeURI(path as string)
-				}?utm_source=fb_page&utm_medium=VercelAPP&utm_campaign=SQR`,
+				}?utm_source=fb_page&utm_medium=JeniferVer&utm_campaign=SQR`,
 			},
 		};
 	}
@@ -39,6 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 					}
 				}
 				seo{
+				title
       opengraphImage{
         sourceUrl
       }
@@ -88,7 +89,7 @@ const Post: React.FC<PostProps> = (props) => {
 	return (
 		<>
 			<Head>
-				<meta property="og:title" content={post.title} />
+				<meta property="og:title" content={post.seo.title} />
 				<meta name="description" content={removeTags(post.excerpt)} />
 				<link rel="canonical" href={`https://${host}/${path}`} />
 				<meta property="og:description" content={removeTags(post.excerpt)} />
@@ -106,7 +107,7 @@ const Post: React.FC<PostProps> = (props) => {
 				<title>{removeTags(post.excerpt)}</title>
 			</Head>
 			<div className="post-container">
-				<h1>{post.title}</h1>
+				<h1>{post.seo.title}</h1>
 				<img
 					src={post.featuredImage.node.sourceUrl}
 					alt={post.featuredImage.node.altText || post.title}
